@@ -15,13 +15,13 @@ router.get('/', async (_, res: Response) => {
   try {
     const data: string[] = await Author.getAllAuthors({ family_name: 1 });
     if (data.length > 0) {
-      res.send(data);
+      res.status(200).json(data);
     } else {
-      res.send('No authors found');
+      res.status(404).json({ message: 'No authors found' });
     }
   } catch (error) {
     console.error('Error processing request:', error);
-    res.send('No authors found');
+    res.status(500).json({ message: 'Error fetching authors' });
   }
 });
 
